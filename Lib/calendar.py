@@ -158,6 +158,35 @@ def weekday(year, month, day):
     return Day(datetime.date(year, month, day).weekday())
 
 
+#function to find the number of weekends and weekdays between any two given dates
+#can be used to find number of working days between two given dates, if an array of Holidays is added as an additional argument
+#useful HR metric
+#in future i will add an array of user-input restricted holidays, which can give number of WORKING days between two dates(weekends and restricted holidays excluded).
+#i will write another function to do so
+def get_weekends_count(start_date , end_date):
+    #find the number of weekends between start_date and end_date
+    #NOTE:::: START DATE < END DATE ALWAYS
+            start_date_weekday = weekday(start_date)
+            end_date_weekday = weekday(end_date)
+            first_day_of_week_dayoftheweek = start_date_weekday
+            total_days = end_date - start_date #caution
+
+            div = total_days // 7
+            rem = total_days % 7
+
+            num_weekends = div * 2
+            
+            for i in range(rem):
+                if(first_day_of_week_dayoftheweek + i) % 7 in (5,6):
+                    num_weekends += 1
+
+            print("WEEKENDS NO.",num_weekends)
+            num_weekdays = (total_days - num_weekends)
+            print("WEEKDAYS NO.", num_weekdays)
+
+            return num_weekdays
+
+
 def monthrange(year, month):
     """Return weekday (0-6 ~ Mon-Sun) and number of days (28-31) for
        year, month."""
